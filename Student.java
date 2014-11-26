@@ -1,1 +1,3 @@
-//Nothing here yet
+public class Student extends User{
+  do.something;
+}
