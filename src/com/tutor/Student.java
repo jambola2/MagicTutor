@@ -1,3 +1,6 @@
+package com.tutor;
+
+
 public class Student extends User{
     private String firstName;
     private String lastName;
