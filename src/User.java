@@ -1,9 +1,9 @@
 import java.security.MessageDigest;
 public class User{
-  String firstName;
-  String lastName;
-  String userName;
-  String passwordHash;
+  private String firstName;
+  private String lastName;
+  private String userName;
+  private String passwordHash;
   
   public User(String f, String l, String u, String p){
     this.firstName = f;
@@ -29,5 +29,14 @@ public class User{
 	     return null;
 	   }
 	}
+  public String displayName(){
+  	return this.firstName + " " + this.lastName;
+  }
   
+  public boolean userTest(String password){
+  	if (hash(password).equals(this.passwordHash)){
+  		return true;
+  	}
+  	return false;
+  }
 }
