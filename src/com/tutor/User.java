@@ -1,3 +1,4 @@
+package com.tutor;
 import java.security.MessageDigest;
 public class User{
   String firstName;
