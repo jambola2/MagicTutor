@@ -1,14 +1,12 @@
 package com.tutor;
 import java.security.MessageDigest;
 public class User{
-    private String firstName;
-    private String lastName;
+
     private String userName;
     private String passwordHash;
   
-    public User(String f, String l, String u, String p){
-    	this.firstName = f;
-    	this.lastName = l;
+    public User(String u, String p){
+
     	this.userName = u;
     	this.passwordHash = hash(p);
     }	
@@ -30,10 +28,7 @@ public class User{
 		   return null;
 	   }
 	}
-    public String displayName(){
-    	return this.firstName + " " + this.lastName;
-    }
-  
+
     public boolean userTest(String password){
 	  	if (hash(password).equals(this.passwordHash)){
 	  		return true;
