@@ -37,5 +37,16 @@ public class User{
 	  	}
 	  	return false;
     }
+    
+	public void add(String username, String password, String type){
+		try {
+			BufferedWriter w = new BufferedWriter(new FileWriter(Main.location, true));
+			w.write("\n" + username + "#" + hash(password) + "#" + type);
+			w.close();
+		}
+		catch(Exception e){
+			System.out.println("Something broke");
+		}
 
+	}
 }

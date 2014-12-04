@@ -20,7 +20,7 @@ public class Staff extends User{
 			String username = "a";//TODO ask for student name with GUI
 			String spassword = "b"; //TODO ask for student password with GUI
 			if (passwords.get(username) == null){
-				Main.add(username, spassword, "s");
+				add(username, spassword, "s");
 			}
 		}
 	}
