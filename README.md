@@ -9,7 +9,7 @@ Main.java
 User.java
 ----------
 -Superclass for Staff.java and Student.java
--Has firstName, lastName, username and passwordHash
+-Has username and passwordHash
 -Has methods getDisplayName(), getPasswordHash(), getUserName(), changePassword(), logout()
 
 Staff.java
