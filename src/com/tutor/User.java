@@ -43,10 +43,17 @@ public class User{
 			BufferedWriter w = new BufferedWriter(new FileWriter(Main.location, true));
 			w.write("\n" + username + "#" + hash(password) + "#" + type);
 			w.close();
+			Main.passwords.put(username, hash(password)+ '#' + type);
 		}
 		catch(Exception e){
 			System.out.println("Something broke");
 		}
 
+	}
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 }
