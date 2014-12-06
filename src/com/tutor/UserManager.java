@@ -16,16 +16,18 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Scale;
 
-public class Login extends ApplicationWindow {
-	private Text username;
-	private Text password;
-
+public class UserManager extends ApplicationWindow {
+	private User user;
+	private String type;
 	/**
 	 * Create the application window.
 	 */
-	public Login() {
+	public UserManager(User user) {
 		super(null);
+		this.user = user;
+		this.type = user.getType();
 		setBlockOnOpen(true);
 		open();
 		Display.getCurrent().dispose();
@@ -42,41 +44,46 @@ public class Login extends ApplicationWindow {
 		Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(null);
 		
-		username = new Text(container, SWT.BORDER);
-		username.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		username.setBounds(190, 55, 116, 36);
-		
-		Label lblNewLabel = new Label(container, SWT.NONE);
-		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		lblNewLabel.setBounds(68, 55, 116, 60);
-		lblNewLabel.setText("Username:");
-		
-		password = new Text(container, SWT.BORDER);
-		password.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		password.setBounds(190, 111, 116, 36);
-		
-		Label lblPassword = new Label(container, SWT.NONE);
-		lblPassword.setText("Password:");
-		lblPassword.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		lblPassword.setBounds(68, 114, 116, 60);
-		
-		Button btnNewButton = new Button(container, SWT.NONE);
-		btnNewButton.addSelectionListener(new SelectionAdapter() {
+		Button returnButton = new Button(container, SWT.NONE);
+		returnButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println("Login attempted");
-				Main.login(Main.passwords, username.getText(), password.getText());
+				System.out.println("User logged out");
+				new MainMenu(user);
 			}
 		});
-		btnNewButton.setFont(SWTResourceManager.getFont("Cambria", 16, SWT.BOLD));
-		btnNewButton.setBounds(140, 169, 82, 40);
-		btnNewButton.setText("Login");
+		returnButton.setFont(SWTResourceManager.getFont("Cambria", 16, SWT.BOLD));
+		returnButton.setBounds(312, 83, 112, 76);
+		returnButton.setText("Return");
 		
 		Label lblLogInTo = new Label(container, SWT.NONE);
 		lblLogInTo.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		lblLogInTo.setBounds(88, 10, 264, 31);
-		lblLogInTo.setText("Log in to Magic Tutor");
-
+		lblLogInTo.setBounds(78, 10, 318, 67);
+		lblLogInTo.setText("Welcome to magic tutor \n " + user.getUserName());
+		
+		Button user = new Button(container, SWT.NONE);
+		user.setText("Add student");
+		user.setFont(SWTResourceManager.getFont("Cambria", 15, SWT.NORMAL));
+		user.setBounds(22, 83,127,76);
+		user.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+			}
+		});
+		Button button2 = new Button(container, SWT.NONE);
+		button2.setText("Add teacher");
+		button2.setFont(SWTResourceManager.getFont("Cambria", 16, SWT.NORMAL));
+		button2.setBounds(155, 83, 151, 76);
+		if (type.equals("t")){
+			button2.setText("Modify group");	
+		}
+		button2.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+			}
+		});
 		return container;
 	}
 
@@ -104,7 +111,7 @@ public class Login extends ApplicationWindow {
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText("Log In!");
+		newShell.setText("Main Menu");
 	}
 
 	/**

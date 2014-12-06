@@ -8,8 +8,8 @@ public class Staff extends User{
 	private String userName;
 	private String passwordHash;
 	
-	public Staff(String u, String p){
-		super(u, p);
+	public Staff(String u, String p, String f){
+		super(u, p, f);
 	}
 	public void createStudent(HashMap<String, String> passwords){
 		while (true){

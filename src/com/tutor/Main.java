@@ -5,9 +5,9 @@ import java.util.*;
 
 public class Main {
 	// Mac-location Uncomment next line
-	//public static String location = "/Users/venkateshrameshkumar/Dropbox/workspace/Database.txt";
+	//public static String location = "/Users/venkateshrameshkumar/Dropbox/workspace";
 	// Windows-location Uncomment next line
-	public static String location = "C:\\Users\\venkatesh\\Dropbox\\workspace\\Database.txt";
+	public static String location = "C:/Users/venkatesh/Dropbox/workspace";
 	
 	public static HashMap<String, String> passwords;
 	static BufferedReader read;
@@ -20,13 +20,14 @@ public class Main {
 				location = s.nextLine().replaceAll("//s","");
 				}
 			try{
-				read = new BufferedReader(new FileReader(location));
+				read = new BufferedReader(new FileReader(location + "/Database.txt"));
 				passwords = new HashMap<String, String>();
 				while (true){
 					String a = read.readLine();
 					if (a == null){
 						break;
 					}
+					a.replaceAll("//s", "");
 					int seperator = 0;
 					for(; seperator<a.length(); seperator++){
 						if (a.charAt(seperator) == '#'){
@@ -65,29 +66,29 @@ public class Main {
 		for (int i = 0; i < result.length(); i++){
 			if (result.charAt(i)=='#'){
 				if (result.charAt(i+1)=='a'){
-					Admin a = new Admin(username, password);
+					User a = new User(username, password, "a");
 					if (!a.getPasswordHash().equals(rpass)){ break; }
 					System.out.println("Admin "+ username + " logged in!");
-					new MainMenu(username, "a");
+					new MainMenu(a);
 					return a;
 				}
 				if (result.charAt(i+1)=='t'){
-					Teacher t = new Teacher(username, password);
+					User t = new User(username, password, "t");
 					if (!t.getPasswordHash().equals(rpass)){ break; }
 					System.out.println("Teacher " + username + " logged in!");
-					new MainMenu(username, "t");
+					new MainMenu(t);
 					return t;
 				}
 				if (result.charAt(i+1)== 's'){
-					Student s = new Student(username, password);
+					User s = new User(username, password, "s");
 					if (!s.getPasswordHash().equals(rpass)){ break; }
 					System.out.println("Student " + username + " logged in!");
-					new MainMenu(username, "s");
+					new MainMenu(s);
 					return s;
 				}
 			}
 		}
-		System.out.println("Usertype unrecognised");
+		System.out.println("Username/password combination unrecognized");
 		return null;
 	}
 	
