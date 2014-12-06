@@ -1,5 +1,7 @@
 package com.tutor;
 
+import java.util.Map;
+
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
@@ -8,7 +10,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+
 import swing2swt.layout.BoxLayout;
+
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
@@ -17,15 +21,19 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-public class Login extends ApplicationWindow {
+public class AddUser extends ApplicationWindow {
 	private Text username;
 	private Text password;
+	private String type;
+	private User user;
 
 	/**
 	 * Create the application window.
 	 */
-	public Login() {
+	public AddUser(User user, String type) {
 		super(null);
+		this.type = type;
+		this.user = user;
 		setBlockOnOpen(true);
 		open();
 		Display.getCurrent().dispose();
@@ -39,47 +47,58 @@ public class Login extends ApplicationWindow {
 	 */
 	@Override
 	protected Control createContents(Composite parent) {
-		
-		
 		Composite container = new Composite(parent, SWT.NONE);
 		container.setLayout(null);
 		
 		username = new Text(container, SWT.BORDER);
 		username.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		username.setBounds(190, 55, 116, 36);
+		username.setBounds(176, 55, 116, 36);
 		
 		Label lblNewLabel = new Label(container, SWT.NONE);
 		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		lblNewLabel.setBounds(68, 55, 116, 60);
-		lblNewLabel.setText("Username:");
+		lblNewLabel.setBounds(23, 58, 147, 60);
+		lblNewLabel.setText("New Username:");
 		
 		password = new Text(container, SWT.BORDER);
 		password.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		password.setBounds(190, 111, 116, 36);
+		password.setBounds(176, 111, 116, 36);
 		
 		Label lblPassword = new Label(container, SWT.NONE);
-		lblPassword.setText("Password:");
+		lblPassword.setText("New Password:");
 		lblPassword.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		lblPassword.setBounds(68, 114, 116, 60);
+		lblPassword.setBounds(23, 114, 147, 60);
 		
 		Button btnNewButton = new Button(container, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println("Login attempted");
-				Main.login(Main.passwords, username.getText(), password.getText());
+				User u = new User(username.getText(), password.getText(), type);
+				u.add(u.getUserName(), u.getPasswordHash(), type);
+				new MainMenu(user);
+				}
+			}
+		);
+		
+		Button returnButton = new Button(container, SWT.NONE);
+		returnButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new MainMenu(user);
 			}
 		});
-		btnNewButton.setFont(SWTResourceManager.getFont("Cambria", 16, SWT.BOLD));
-		btnNewButton.setBounds(140, 169, 82, 40);
-		btnNewButton.setText("Login");
+		returnButton.setFont(SWTResourceManager.getFont("Cambria", 16, SWT.BOLD));
+		returnButton.setBounds(312, 71, 112, 76);
+		returnButton.setText("Cancel");
 		
+		btnNewButton.setFont(SWTResourceManager.getFont("Cambria", 16, SWT.BOLD));
+		btnNewButton.setBounds(165, 169, 82, 40);
+		btnNewButton.setText("Create");
 		
 		Label lblLogInTo = new Label(container, SWT.NONE);
 		lblLogInTo.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
-		lblLogInTo.setBounds(88, 10, 264, 31);
-		lblLogInTo.setText("Log in to Magic Tutor");
-
+		lblLogInTo.setBounds(124, 10, 264, 31);
+		lblLogInTo.setText("Add new student");
+		if (type.equals("t")){lblLogInTo.setText("Add new teacher");}
 		return container;
 	}
 
@@ -107,7 +126,7 @@ public class Login extends ApplicationWindow {
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText("Log In!");
+		newShell.setText("Change password");
 	}
 
 	/**

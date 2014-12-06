@@ -9,7 +9,6 @@ public class User{
     private String type;
     
     public User(String u, String p, String t){
-
     	this.userName = u;
     	this.passwordHash = hash(p);    
     	this.type = t;

@@ -30,10 +30,10 @@ public class PasswordChange extends ApplicationWindow {
 	/**
 	 * Create the application window.
 	 */
-	public PasswordChange(User user, String type) {
+	public PasswordChange(User user) {
 		super(null);
 		this.user = user;
-		this.type = type;
+		this.type = user.getType();
 		setBlockOnOpen(true);
 		open();
 		Display.getCurrent().dispose();
@@ -67,6 +67,17 @@ public class PasswordChange extends ApplicationWindow {
 		lblPassword.setText("Old Password:");
 		lblPassword.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		lblPassword.setBounds(37, 114, 147, 60);
+		
+		Button returnButton = new Button(container, SWT.NONE);
+		returnButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new MainMenu(user);
+			}
+		});
+		returnButton.setFont(SWTResourceManager.getFont("Cambria", 16, SWT.BOLD));
+		returnButton.setBounds(312, 71, 112, 76);
+		returnButton.setText("Cancel");
 		
 		Button btnNewButton = new Button(container, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {

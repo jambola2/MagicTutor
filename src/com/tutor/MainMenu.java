@@ -65,8 +65,7 @@ public class MainMenu extends ApplicationWindow {
 		changePasswordButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				new PasswordChange(user, type);
-				
+				new PasswordChange(user);
 			}
 		});
 		changePasswordButton.setText("Change password");
@@ -104,7 +103,7 @@ public class MainMenu extends ApplicationWindow {
 		quizzes.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
+				new QuizMenu(user);
 			}
 		});
 		return container;
