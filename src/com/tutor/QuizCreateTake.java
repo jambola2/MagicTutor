@@ -68,6 +68,7 @@ public class QuizCreateTake extends ApplicationWindow {
 			question.setEditable(false);
 			System.out.println(key);
 			if (key == null){
+				System.out.println("Quiz not found");
 				return null;
 			}
 			question.setText(key);
@@ -85,7 +86,7 @@ public class QuizCreateTake extends ApplicationWindow {
 		answer.setBounds(190, 111, 116, 36);
 		
 		Label lblanswer = new Label(container, SWT.NONE);
-		lblanswer.setText("Old answer:");
+		lblanswer.setText("Answer:");
 		lblanswer.setFont(SWTResourceManager.getFont("Segoe UI", 16, SWT.NORMAL));
 		lblanswer.setBounds(37, 114, 147, 60);
 		
